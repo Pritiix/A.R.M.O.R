@@ -150,24 +150,7 @@ export function Header() {
         </div>
       )}
 
-      {/* Mode badge / toggle button */}
-      <button
-        onClick={() => {
-          const nextMode = telemetryMode === 'simulation' ? 'live' : 'simulation'
-          useARMORStore.getState().setTelemetryMode(nextMode)
-        }}
-        title="Click to toggle Telemetry Mode (SIMULATION / LIVE)"
-        className="flex items-center gap-1 px-2 py-1 rounded flex-shrink-0 cursor-pointer hover:brightness-125 transition-all active:scale-95"
-        style={{
-          background: telemetryMode === 'simulation' ? 'rgba(245,158,11,0.15)' : 'rgba(34,197,94,0.15)',
-          border: `1px solid ${telemetryMode === 'simulation' ? 'rgba(245,158,11,0.4)' : 'rgba(34,197,94,0.4)'}`,
-          color: telemetryMode === 'simulation' ? '#f59e0b' : '#22c55e',
-          fontSize: 9,
-        }}
-      >
-        <Zap size={10} />
-        <span className="font-mono font-bold tracking-widest">{telemetryMode === 'simulation' ? '⚡ SIMULATION' : '● LIVE HARDWARE'}</span>
-      </button>
+
 
 
       {/* Connection badge */}
