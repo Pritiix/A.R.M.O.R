@@ -60,12 +60,12 @@ export function Sidebar() {
     >
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-3 py-3.5 border-b border-armor-border" style={{ minHeight: 56 }}>
-        <div
-          className="flex-shrink-0 flex items-center justify-center rounded"
-          style={{ width: 30, height: 30, background: 'linear-gradient(135deg, #1D8CF8, #0066cc)', color: '#fff' }}
-        >
-          <Shield size={16} />
-        </div>
+        <img
+          src="/logo.png"
+          alt="A.R.M.O.R. Logo"
+          className="flex-shrink-0 object-contain rounded"
+          style={{ width: 32, height: 32 }}
+        />
         {!collapsed && (
           <div className="min-w-0">
             <div className="font-display font-bold text-armor-text-primary leading-tight tracking-widest" style={{ fontSize: 13 }}>A.R.M.O.R.</div>

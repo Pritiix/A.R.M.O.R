@@ -66,13 +66,20 @@ export function Header() {
       style={{ background: '#0D1620', borderBottom: '1px solid #1E2D3D' }}
     >
       {/* Branding */}
-      <div className="flex flex-col flex-shrink-0">
-        <span className="font-display font-bold text-armor-text-primary tracking-widest uppercase leading-none" style={{ fontSize: 13 }}>
-          A.R.M.O.R.
-        </span>
-        <span className="text-armor-text-dim font-mono tracking-widest uppercase" style={{ fontSize: 7 }}>
-          Mission Control
-        </span>
+      <div className="flex items-center gap-2.5 flex-shrink-0">
+        <img
+          src="/logo.png"
+          alt="A.R.M.O.R. Logo"
+          className="w-7 h-7 object-contain flex-shrink-0"
+        />
+        <div className="flex flex-col">
+          <span className="font-display font-bold text-armor-text-primary tracking-widest uppercase leading-none" style={{ fontSize: 13 }}>
+            A.R.M.O.R.
+          </span>
+          <span className="text-armor-text-dim font-mono tracking-widest uppercase" style={{ fontSize: 7 }}>
+            Mission Control
+          </span>
+        </div>
       </div>
 
       <div className="h-7 w-px bg-armor-border flex-shrink-0" />
