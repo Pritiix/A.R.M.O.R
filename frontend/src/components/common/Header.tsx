@@ -127,28 +127,27 @@ export function Header() {
         </div>
       )}
 
-      {/* Scenario Selector — only in simulation */}
-      {telemetryMode === 'simulation' && (
-        <div className="flex items-center gap-1.5">
-          <span className="font-mono text-armor-text-dim" style={{ fontSize: 9 }}>SCENARIO:</span>
-          <select
-            value={currentScenario}
-            onChange={(e) => handleScenarioChange(e.target.value as SimulationScenario)}
-            className="font-mono font-semibold rounded px-2 py-1 text-amber-400 cursor-pointer"
-            style={{
-              fontSize: 9,
-              background: 'rgba(245,158,11,0.1)',
-              border: '1px solid rgba(245,158,11,0.3)',
-              outline: 'none',
-              letterSpacing: '0.08em',
-            }}
-          >
-            {SIMULATION_SCENARIOS.map((s) => (
-              <option key={s.value} value={s.value} style={{ background: '#111A23' }}>{s.value.replace(/_/g, ' ')}</option>
-            ))}
-          </select>
-        </div>
-      )}
+      {/* Scenario Selector — Always visible */}
+      <div className="flex items-center gap-1.5 flex-shrink-0">
+        <span className="font-mono text-armor-text-dim" style={{ fontSize: 9 }}>SCENARIO:</span>
+        <select
+          value={currentScenario}
+          onChange={(e) => handleScenarioChange(e.target.value as SimulationScenario)}
+          className="font-mono font-semibold rounded px-2 py-1 text-amber-400 cursor-pointer"
+          style={{
+            fontSize: 9,
+            background: 'rgba(245,158,11,0.1)',
+            border: '1px solid rgba(245,158,11,0.3)',
+            outline: 'none',
+            letterSpacing: '0.08em',
+          }}
+        >
+          {SIMULATION_SCENARIOS.map((s) => (
+            <option key={s.value} value={s.value} style={{ background: '#111A23' }}>{s.value.replace(/_/g, ' ')}</option>
+          ))}
+        </select>
+      </div>
+
 
 
 
