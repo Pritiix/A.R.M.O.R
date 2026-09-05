@@ -4,6 +4,7 @@
  */
 import { useState, useCallback, useEffect } from 'react'
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight, OctagonX, Gamepad2, Lightbulb, Camera, Volume2, Zap } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { useARMORStore } from '../../store/armorStore'
 import { sendCommand } from '../../services/apiService'
 import type { CommandType, RoverMode } from '../../types/telemetry'
@@ -11,7 +12,7 @@ import type { CommandType, RoverMode } from '../../types/telemetry'
 function DPadButton({
   icon: Icon, command, label, className = '',
 }: {
-  icon: React.ElementType
+  icon: LucideIcon
   command: CommandType
   label: string
   className?: string
@@ -53,7 +54,7 @@ function DPadButton({
   )
 }
 
-function AuxButton({ icon: Icon, label, command }: { icon: React.ElementType; label: string; command: CommandType }) {
+function AuxButton({ icon: Icon, label, command }: { icon: LucideIcon; label: string; command: CommandType }) {
   const [on, setOn] = useState(false)
   const toggle = async () => {
     const nextOn = !on

@@ -1,12 +1,13 @@
 /**
  * AIDetectionPanel — matches the "AI DETECTION" card in the reference image
  */
-import { Brain, ChevronRight, MapPin, User, Flame, Mountain } from 'lucide-react'
+import { Brain, ChevronRight, User, Flame, Mountain } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useARMORStore } from '../../store/armorStore'
 
 interface DetectionItemProps {
-  icon: React.ElementType
+  icon: LucideIcon
   label: string
   confidence: number
   color?: string

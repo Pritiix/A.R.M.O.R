@@ -3,6 +3,7 @@ A.R.M.O.R. Backend — Telemetry REST + WebSocket Routes
 """
 from __future__ import annotations
 
+import json
 import logging
 import uuid
 from typing import Optional
@@ -61,6 +62,21 @@ async def ws_telemetry(websocket: WebSocket):
             # Handle ping/pong from client
             if raw == '{"type":"ping"}':
                 await websocket.send_text('{"type":"pong"}')
+                continue
+
+            # AI clients publish alert envelopes here. Relay validated alert data
+            # to every dashboard subscriber, including clients other than sender.
+            try:
+                incoming = json.loads(raw)
+            except json.JSONDecodeError:
+                logger.warning("[WS] Ignoring malformed client message from %s", client_id)
+                continue
+            if (
+                isinstance(incoming, dict)
+                and incoming.get("event") == WSEventType.ALERT.value
+                and isinstance(incoming.get("data"), dict)
+            ):
+                await manager.broadcast(WSEvent(event=WSEventType.ALERT, data=incoming["data"]))
     except WebSocketDisconnect:
         pass
     finally:

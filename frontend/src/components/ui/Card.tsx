@@ -1,8 +1,9 @@
 import React from 'react'
+import type { LucideIcon } from 'lucide-react'
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
-  icon?: React.ElementType
+  icon?: LucideIcon
   action?: React.ReactNode
   variant?: 'default' | 'warning' | 'critical'
   noPadding?: boolean

@@ -15,6 +15,7 @@ import type {
   WSEvent,
   WSConnectionStatus,
   WSCommandAck,
+  VisionAlert,
 } from '../types/telemetry';
 
 class WebSocketTelemetryService {
@@ -117,7 +118,11 @@ class WebSocketTelemetryService {
         break;
 
       case 'alert':
-        console.warn('[WS] Alert:', msg.data);
+        if ((msg.data as Partial<VisionAlert>).type === 'PERSON_DETECTION') {
+          store.receiveVisionAlert(msg.data as VisionAlert);
+        } else {
+          console.warn('[WS] Alert:', msg.data);
+        }
         break;
 
       case 'error':

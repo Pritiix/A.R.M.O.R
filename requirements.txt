@@ -1,0 +1,4 @@
+ultralytics>=8.2,<9
+opencv-python>=4.8,<5
+websockets>=13,<16
+asyncio; python_version < "3.4"

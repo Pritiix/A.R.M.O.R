@@ -12,13 +12,15 @@ export function GasMonitoring() {
   const smokeRaw = s?.smoke_raw ?? 0
   const smokePpm = s?.smoke_ppm ?? 0
   const smokeStatus = s?.smoke_status ?? 'NORMAL'
+  const warningRaw = THRESHOLDS.smoke.warningRaw
+  const criticalRaw = THRESHOLDS.smoke.criticalRaw
 
   const chartData = history.map((p, index) => ({
     time: p.timestamp ? new Date(p.timestamp).toLocaleTimeString() : `#${index}`,
     raw: p.sensors?.smoke_raw ?? 0,
     ppm: p.sensors?.smoke_ppm ?? 0,
-    warnLimit: THRESHOLDS.smoke.warning,
-    critLimit: THRESHOLDS.smoke.critical,
+    warnLimit: warningRaw,
+    critLimit: criticalRaw,
   }))
 
   const isCritical = smokeStatus === 'CRITICAL'
@@ -78,15 +80,15 @@ export function GasMonitoring() {
           <div className="space-y-2 py-1 font-mono text-xs">
             <div className="flex justify-between items-center">
               <span className="text-armor-text-dim">Normal Level:</span>
-              <span className="text-emerald-400 font-bold">&lt; 300 ADC</span>
+              <span className="text-emerald-400 font-bold">&lt; {warningRaw} ADC</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-armor-text-dim">Warning Threshold:</span>
-              <span className="text-amber-400 font-bold">300 ADC</span>
+              <span className="text-amber-400 font-bold">{warningRaw} ADC</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-armor-text-dim">Critical Threshold:</span>
-              <span className="text-red-400 font-bold">600 ADC</span>
+              <span className="text-red-400 font-bold">{criticalRaw} ADC</span>
             </div>
           </div>
         </Card>
@@ -103,8 +105,8 @@ export function GasMonitoring() {
               <Tooltip
                 contentStyle={{ background: '#0D1620', borderColor: '#1E2D3D', color: '#E8EDF2', fontSize: 12 }}
               />
-              <ReferenceLine y={THRESHOLDS.smoke.warning} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: 'WARNING (300)', fill: '#f59e0b', fontSize: 10 }} />
-              <ReferenceLine y={THRESHOLDS.smoke.critical} stroke="#ef4444" strokeDasharray="4 4" label={{ value: 'CRITICAL (600)', fill: '#ef4444', fontSize: 10 }} />
+              <ReferenceLine y={warningRaw} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: `WARNING (${warningRaw})`, fill: '#f59e0b', fontSize: 10 }} />
+              <ReferenceLine y={criticalRaw} stroke="#ef4444" strokeDasharray="4 4" label={{ value: `CRITICAL (${criticalRaw})`, fill: '#ef4444', fontSize: 10 }} />
               <Line type="monotone" dataKey="raw" stroke="#1D8CF8" strokeWidth={2} dot={false} name="MQ-2 Raw ADC" />
             </LineChart>
           </ResponsiveContainer>

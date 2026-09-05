@@ -1,11 +1,12 @@
 import React from 'react'
+import type { LucideIcon } from 'lucide-react'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'warning' | 'ghost'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: 'sm' | 'md' | 'lg'
-  icon?: React.ElementType
+  icon?: LucideIcon
   loading?: boolean
 }
 

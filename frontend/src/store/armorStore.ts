@@ -12,6 +12,7 @@ import type {
   TelemetryMode,
   SimulationScenario,
   WSConnectionStatus,
+  VisionAlert,
 } from '../types/telemetry';
 import { TELEMETRY_HISTORY_LENGTH, STALE_TIMEOUT_SECONDS } from '../config/constants';
 
@@ -54,9 +55,14 @@ interface UIState {
   selectedPage: string;
 }
 
+interface VisionState {
+  latestVisionAlert: VisionAlert | null;
+  visionAlerts: VisionAlert[];
+}
+
 // ─── Full Store ───────────────────────────────────────────────────────────────
 
-interface ARMORStore extends ConnectionState, TelemetryState, MissionState, UIState {
+interface ARMORStore extends ConnectionState, TelemetryState, MissionState, UIState, VisionState {
   // Connection actions
   setWSStatus: (status: WSStatus) => void;
   setBackendOnline: (online: boolean) => void;
@@ -73,6 +79,9 @@ interface ARMORStore extends ConnectionState, TelemetryState, MissionState, UISt
   // Mission actions
   addMissionEvent: (event: MissionEvent) => void;
   setMissionId: (id: string) => void;
+
+  // AI vision actions
+  receiveVisionAlert: (alert: VisionAlert) => void;
 
   // UI actions
   toggleSidebar: () => void;
@@ -106,6 +115,10 @@ export const useARMORStore = create<ARMORStore>((set, get) => ({
   // UI defaults
   sidebarCollapsed: false,
   selectedPage: 'dashboard',
+
+  // Vision defaults
+  latestVisionAlert: null,
+  visionAlerts: [],
 
   // ─── Actions ──────────────────────────────────────────────────────────────
 
@@ -157,6 +170,12 @@ export const useARMORStore = create<ARMORStore>((set, get) => ({
     })),
 
   setMissionId: (id) => set({ missionId: id }),
+
+  receiveVisionAlert: (alert) =>
+    set((state) => ({
+      latestVisionAlert: alert,
+      visionAlerts: [alert, ...state.visionAlerts].slice(0, 50),
+    })),
 
   toggleSidebar: () =>
     set((state) => ({ sidebarCollapsed: !state.sidebarCollapsed })),

@@ -164,3 +164,21 @@ export interface WSCommandAck {
   value: number | null;
   status: string;
 }
+
+/** Person-detection event emitted by the local A.R.M.O.R. AI engine. */
+export interface VisionAlert {
+  type: 'PERSON_DETECTION';
+  status: 'WARNING' | 'CRITICAL_SURVIVOR' | 'UNVERIFIED';
+  person_detected: boolean;
+  person_count: number;
+  max_confidence: number;
+  detections: Array<{
+    class_id: 0;
+    label: 'person';
+    confidence: number;
+    bbox_xyxy: [number, number, number, number];
+  }>;
+  frame_width?: number;
+  frame_height?: number;
+  timestamp: string;
+}

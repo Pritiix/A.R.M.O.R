@@ -1,4 +1,4 @@
-import React from 'react'
+import type { LucideIcon } from 'lucide-react'
 
 export interface MetricDisplayProps {
   label: string
@@ -6,7 +6,7 @@ export interface MetricDisplayProps {
   unit?: string
   color?: string
   status?: string
-  icon?: React.ElementType
+  icon?: LucideIcon
 }
 
 export function MetricDisplay({
