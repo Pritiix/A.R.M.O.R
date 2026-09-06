@@ -64,7 +64,7 @@ export function LiveVision() {
             <div className="space-y-2 font-mono text-xs py-1">
               {visionAlerts.length === 0 ? (
                 <div className="p-2 rounded bg-armor-surface/60 border border-armor-border text-[10px] text-armor-text-dim">
-                  Waiting for person detections from ai_engine.py…
+                  Waiting for person detections from ai/ai_engine.py…
                 </div>
               ) : visionAlerts.slice(0, 4).map((alert) => (
                 <div key={alert.timestamp} className="p-2 rounded bg-armor-surface/60 border border-armor-border">

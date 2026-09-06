@@ -91,7 +91,10 @@ class EngineConfig:
                 "WS_ENDPOINT",
                 os.getenv("TELEMETRY_WS_URL", "ws://localhost:8000/ws/telemetry"),
             ).strip(),
-            model_path=os.getenv("YOLO_MODEL_PATH", "yolov8n.pt").strip(),
+            model_path=os.getenv(
+                "YOLO_MODEL_PATH",
+                os.path.join(os.path.dirname(__file__), "models", "yolov8n.pt"),
+            ).strip(),
             confidence_threshold=_env_float("YOLO_CONFIDENCE_THRESHOLD", 0.50),
             temperature_warning_c=_env_float("TEMPERATURE_WARNING_C", 35.0),
             temperature_critical_c=_env_float("TEMPERATURE_CRITICAL_C", 45.0),

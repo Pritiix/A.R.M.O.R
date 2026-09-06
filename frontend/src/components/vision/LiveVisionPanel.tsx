@@ -10,7 +10,7 @@ interface Props {
 type StreamState = 'connecting' | 'live' | 'error'
 const ENGINE_STREAM_URL = import.meta.env.VITE_VISION_STREAM_URL ?? 'http://127.0.0.1:8081/stream.mjpg'
 
-/** Displays the MJPEG stream owned by ai_engine.py, avoiding a second webcam client. */
+/** Displays the MJPEG stream owned by ai/ai_engine.py, avoiding a second webcam client. */
 export function LiveVisionPanel({ onExpand, showBoundingBoxes = true }: Props) {
   const [streamState, setStreamState] = useState<StreamState>('connecting')
   const [retry, setRetry] = useState(0)
@@ -67,7 +67,7 @@ export function LiveVisionPanel({ onExpand, showBoundingBoxes = true }: Props) {
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-6 text-center">
             <WifiOff size={22} className="text-armor-warning" />
             <span className="font-mono text-xs text-armor-warning">AI ENGINE CAMERA UNAVAILABLE</span>
-            <span className="font-mono text-[10px] text-armor-text-dim">Start ai_engine.py, then this panel will reconnect automatically.</span>
+            <span className="font-mono text-[10px] text-armor-text-dim">Start ai/ai_engine.py, then this panel will reconnect automatically.</span>
           </div>
         )}
 
