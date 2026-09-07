@@ -122,21 +122,21 @@ export const useARMORStore = create<ARMORStore>((set, get) => ({
 
   // ─── Actions ──────────────────────────────────────────────────────────────
 
-  setWSStatus: (status) => set({ wsStatus: status }),
+  setWSStatus: (status) => set({ wsStatus: status ?? 'disconnected' }),
 
-  setBackendOnline: (online) => set({ backendOnline: online }),
+  setBackendOnline: (online) => set({ backendOnline: !!online }),
 
   setConnectionStatus: (status) =>
-    set({
-      roverConnected: status.rover_connected,
-      telemetryMode: status.telemetry_mode,
-      currentScenario: status.sim_scenario ?? get().currentScenario,
+    set((state) => ({
+      roverConnected: status.rover_connected ?? state.roverConnected,
+      telemetryMode: status.telemetry_mode ?? state.telemetryMode ?? 'simulation',
+      currentScenario: status.sim_scenario ?? state.currentScenario ?? 'NORMAL',
       lastConnected: new Date().toISOString(),
-    }),
+    })),
 
-  setScenario: (scenario) => set({ currentScenario: scenario }),
+  setScenario: (scenario) => set((state) => ({ currentScenario: scenario ?? state.currentScenario ?? 'NORMAL' })),
 
-  setTelemetryMode: (mode) => set({ telemetryMode: mode }),
+  setTelemetryMode: (mode) => set((state) => ({ telemetryMode: mode ?? state.telemetryMode ?? 'simulation' })),
 
   updateTelemetry: (packet) => set({ latest: packet }),
 

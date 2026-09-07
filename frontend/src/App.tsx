@@ -12,6 +12,7 @@ import { MissionLogs } from './pages/MissionLogs'
 import { Reports } from './pages/Reports'
 import { Rover3D } from './pages/Rover3D'
 import { telemetryService } from './services/telemetryService'
+import { ErrorBoundary } from './components/common/ErrorBoundary'
 
 export default function App() {
   useEffect(() => {
@@ -23,22 +24,24 @@ export default function App() {
   }, [])
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route index element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/live-vision" element={<LiveVision />} />
-          <Route path="/mine-map" element={<MineMap />} />
-          <Route path="/telemetry" element={<Telemetry />} />
-          <Route path="/gas-monitoring" element={<GasMonitoring />} />
-          <Route path="/communication" element={<Communication />} />
-          <Route path="/rover-control" element={<RoverControl />} />
-          <Route path="/mission-logs" element={<MissionLogs />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/rover-3d" element={<Rover3D />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/live-vision" element={<LiveVision />} />
+            <Route path="/mine-map" element={<MineMap />} />
+            <Route path="/telemetry" element={<Telemetry />} />
+            <Route path="/gas-monitoring" element={<GasMonitoring />} />
+            <Route path="/communication" element={<Communication />} />
+            <Route path="/rover-control" element={<RoverControl />} />
+            <Route path="/mission-logs" element={<MissionLogs />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/rover-3d" element={<Rover3D />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }

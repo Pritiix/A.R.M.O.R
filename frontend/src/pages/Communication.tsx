@@ -4,11 +4,13 @@ import { Card, Badge, MetricDisplay, StatusIndicator } from '../components/ui'
 
 export function Communication() {
   const latest = useARMORStore((s) => s.latest)
-  const wsStatus = useARMORStore((s) => s.wsStatus)
-  const packetCount = useARMORStore((s) => s.packetCount)
+  const rawWsStatus = useARMORStore((s) => s.wsStatus)
+  const packetCount = useARMORStore((s) => s.packetCount) ?? 0
   const isStale = useARMORStore((s) => s.isStale)
-  const telemetryMode = useARMORStore((s) => s.telemetryMode)
+  const rawTelemetryMode = useARMORStore((s) => s.telemetryMode)
 
+  const wsStatus = (rawWsStatus || 'disconnected').toUpperCase()
+  const telemetryMode = (rawTelemetryMode || 'simulation').toUpperCase()
   const c = latest?.communication
 
   return (
@@ -22,8 +24,8 @@ export function Communication() {
             Wi-Fi / WebSocket Link Statistics & Multi-Hop Relay Node Health
           </p>
         </div>
-        <Badge variant={wsStatus === 'connected' ? 'online' : 'offline'} pulse>
-          {wsStatus.toUpperCase()}
+        <Badge variant={rawWsStatus === 'connected' ? 'online' : 'offline'} pulse>
+          {wsStatus}
         </Badge>
       </div>
 
@@ -32,16 +34,16 @@ export function Communication() {
         <Card title="WEBSOCKET LINK" icon={Wifi}>
           <MetricDisplay
             label="Backend Status"
-            value={wsStatus.toUpperCase()}
-            color={wsStatus === 'connected' ? '#22c55e' : '#6b7280'}
+            value={wsStatus}
+            color={rawWsStatus === 'connected' ? '#22c55e' : '#6b7280'}
           />
         </Card>
         <Card title="SIGNAL STRENGTH" icon={Radio}>
           <MetricDisplay
             label="Wi-Fi RSSI"
-            value={c?.rssi?.toFixed(0) ?? null}
+            value={c?.rssi != null ? c.rssi.toFixed(0) : null}
             unit="dBm"
-            color={c?.rssi && c.rssi > -75 ? '#22c55e' : '#f59e0b'}
+            color={c?.rssi != null && c.rssi > -75 ? '#22c55e' : '#f59e0b'}
           />
         </Card>
         <Card title="TOTAL PACKETS RX" icon={RefreshCw}>
@@ -54,7 +56,7 @@ export function Communication() {
         <Card title="TELEMETRY SOURCE" icon={Server}>
           <MetricDisplay
             label="Current Mode"
-            value={telemetryMode.toUpperCase()}
+            value={telemetryMode}
             color="#f59e0b"
           />
         </Card>
