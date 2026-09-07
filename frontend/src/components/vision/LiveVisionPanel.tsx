@@ -49,14 +49,16 @@ export function LiveVisionPanel({ onExpand, showBoundingBoxes = true }: Props) {
       </div>
 
       <div className="flex-1 relative overflow-hidden bg-black">
-        <img
-          key={retry}
-          src={ENGINE_STREAM_URL}
-          alt="A.R.M.O.R. AI engine camera stream"
-          className="w-full h-full object-cover"
-          onLoad={() => setStreamState('live')}
-          onError={() => setStreamState('error')}
-        />
+        {streamState !== 'error' && (
+          <img
+            key={retry}
+            src={ENGINE_STREAM_URL}
+            alt="A.R.M.O.R. AI engine camera stream"
+            className={`w-full h-full object-cover ${streamState === 'connecting' ? 'opacity-0' : 'opacity-100'}`}
+            onLoad={() => setStreamState('live')}
+            onError={() => setStreamState('error')}
+          />
+        )}
 
         {streamState === 'connecting' && (
           <div className="absolute inset-0 flex items-center justify-center font-mono text-xs text-armor-text-dim">
