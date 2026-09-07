@@ -100,19 +100,19 @@ export function Header() {
         <div className="flex items-center gap-1">
           <Battery size={11} style={{ color: batteryColor }} />
           <span className="font-mono font-semibold" style={{ fontSize: 11, color: batteryColor }}>
-            {battery !== null ? `${battery.toFixed(0)} %` : '--'}
+            {battery != null ? `${battery.toFixed(0)} %` : '--'}
           </span>
         </div>
       </HeaderStat>
 
       {/* Speed */}
-      <HeaderStat label="SPEED" value={speed !== null ? `${speed.toFixed(1)} m/s` : '--'} />
+      <HeaderStat label="SPEED" value={speed != null ? `${speed.toFixed(1)} m/s` : '--'} />
 
       {/* Signal */}
       <HeaderStat label="SIGNAL">
         <div className="flex items-center gap-1">
-          {wsConnected ? <Wifi size={10} style={{ color: rssi && rssi > -75 ? '#22c55e' : '#f59e0b' }} /> : <WifiOff size={10} style={{ color: '#6b7280' }} />}
-          <span className="font-mono font-semibold" style={{ fontSize: 11 }}>{rssi !== null ? `${rssi.toFixed(0)} dBm` : '--'}</span>
+          {wsConnected ? <Wifi size={10} style={{ color: rssi != null && rssi > -75 ? '#22c55e' : '#f59e0b' }} /> : <WifiOff size={10} style={{ color: '#6b7280' }} />}
+          <span className="font-mono font-semibold" style={{ fontSize: 11 }}>{rssi != null ? `${rssi.toFixed(0)} dBm` : '--'}</span>
         </div>
       </HeaderStat>
 
